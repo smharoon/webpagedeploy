@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimeVoice Communication | Premier BPO Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0F172A; /* Deep Navy */
+            --secondary: #3B82F6; /* Bright Blue */
+            --accent: #F97316; /* Orange for US Energy */
+            --light: #F8FAFC;
+            --dark: #1E293B;
+            --text-gray: #64748B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .btn-contact {
+            padding: 0.7rem 1.5rem;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .btn-contact:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.5s;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: #cbd5e1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* --- Services --- */
+        .section {
+            padding: 5rem 10%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 5px solid var(--secondary);
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: #EFF6FF;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .service-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- US Campaign Specialization --- */
+        .us-focus {
+            background: var(--primary);
+            color: white;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .us-content {
+            flex: 1;
+            padding: 5rem;
+            min-width: 400px;
+        }
+
+        .us-image {
+            flex: 1;
+            min-width: 400px;
+            height: 500px;
+            background: url('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .feature-list {
+            margin-top: 2rem;
+            list-style: none;
+        }
+
+        .feature-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .feature-list i {
+            color: var(--accent);
+        }
+
+        /* --- Stats --- */
+        .stats {
+            background: white;
+            padding: 4rem 10%;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            text-align: center;
+            gap: 2rem;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 10% 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-col p, .footer-col a {
+            color: #94a3b8;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #64748B;
+            font-size: 0.9rem;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .us-content {
+                padding: 3rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <i class="fa-solid fa-headset"></i>
+            PrimeVoice<span>.</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="career.html">Careers</a></li>
+        </ul>
+        <a href="#contact" class="btn-contact">Get Started</a>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge"><i class="fa-solid fa-flag-usa"></i> US Campaign Specialists</div>
+            <h1>Bridging Borders, <br>Delivering Excellence</h1>
+            <p>PrimeVoice Communication connects your business to the US market with high-performance BPO solutions. Crystal clear voice, impeccable service.</p>
+            <a href="#services" class="btn-contact" style="background: white; color: var(--primary);">Explore Services</a>
+        </div>
+    </section>
+
+    <div class="stats">
+        <div class="stat-item">
+            <h3>24/7</h3>
+            <p>Operational Hours</p>
+        </div>
+        <div class="stat-item">
+            <h3>1M+</h3>
+            <p>Calls Handled</p>
+        </div>
+        <div class="stat-item">
+            <h3>98%</h3>
+            <p>Client Retention</p>
+        </div>
+    </div>
+
+    <section id="about" class="us-focus">
+        <div class="us-image"></div>
+        <div class="us-content reveal">
+            <h2>Why US Companies Choose PrimeVoice</h2>
+            <p style="margin-top: 1rem; line-height: 1.6; color: #cbd5e1;">
+                We understand the nuances of the American market. Our agents are trained not just in scripts, but in culture, accent neutralization, and US-specific compliance laws (TCPA).
+            </p>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check-circle"></i> <span>Native-level English Proficiency</span></li>
+                <li><i class="fa-solid fa-check-circle"></i> <span>Time Zone Aligned Teams (EST/PST/CST)</span></li>
+                <li><i class="fa-solid fa-check-circle"></i> <span>High-Speed VoIP Infrastructure</span></li>
+                <li><i class="fa-solid fa-check-circle"></i> <span>Data Security & Compliance</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="section-header reveal">
+            <h2>Our Core Solutions</h2>
+            <p>Tailored outsourcing services designed to scale with your campaign needs.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="icon-box">
+                    <i class="fa-solid fa-phone-volume"></i>
+                </div>
+                <h3>Outbound Sales</h3>
+                <p>High-energy lead generation, appointment setting, and telesales tailored for US verticals like Solar, Insurance, and Real Estate.</p>
+            </div>
+
+            <div class="service-card reveal">
+                <div class="icon-box">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h3>Inbound Support</h3>
+                <p>Customer service that cares. We handle inquiries, technical support, and order processing with empathy and efficiency.</p>
+            </div>
+
+            <div class="service-card reveal">
+                <div class="icon-box">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+                <h3>Lead Generation</h3>
+                <p>We qualify prospects before they reach your sales team, ensuring your closers only talk to interested buyers.</p>
+            </div>
+
+             <div class="service-card reveal">
+                <div class="icon-box">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+                <h3>Survey & Research</h3>
+                <p>Gathering market intelligence and customer feedback to help you make data-driven decisions.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 1rem; color: white;">
+                    <i class="fa-solid fa-headset" style="color: var(--secondary);"></i>
+                    PrimeVoice.
+                </div>
+                <p>Empowering businesses through superior voice communication services.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="career.html">Careers</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p><i class="fa-solid fa-location-dot"></i> Corporate Office, India</p>
+                <p><i class="fa-solid fa-envelope"></i> hr@primevoice.com</p>
+                <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2024 PrimeVoice Communication Pvt Ltd. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        window.addEventListener('scroll', reveal);
+
+        function reveal(){
+            var reveals = document.querySelectorAll('.reveal');
+
+            for(var i = 0; i < reveals.length; i++){
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+
+                if(revealtop < windowheight - revealpoint){
+                    reveals[i].classList.add('active');
+                }
+                else{
+                    reveals[i].classList.remove('active');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
