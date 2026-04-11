@@ -1,387 +1,547 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insurance Assistance & Benefits Enrollment | Prime Voice Communication</title>
-    <meta name="description" content="Get help enrolling in ACA, Medicare, SSDI, final expense insurance, and motor vehicle accident support. Fast, hassle-free assistance.">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; }
-        /* Smooth fade-in for the modal */
-        .modal-enter { animation: fadeIn 0.3s ease-out forwards; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-    </style>
-</head>
-<div id="mobileMenu" class="hidden md:hidden bg-white border-b border-teal-100 px-4 py-4 space-y-2">
-    <a href="#services" onclick="toggleMobileMenu()" class="block text-slate-600 hover:text-teal-600 font-medium py-2">Services</a>
-    <a href="#about" onclick="toggleMobileMenu()" class="block text-slate-600 hover:text-teal-600 font-medium py-2">About Us</a>
-    <a href="#contact" onclick="toggleMobileMenu()" class="block text-slate-600 hover:text-teal-600 font-medium py-2">Contact</a>
-    <div class="pt-4 border-t border-slate-100">
-        <a href="tel:+1800PRIME-VOICE" class="block text-teal-700 font-bold mb-4">☎ +1-800-PRIME-VOICE</a>
-        <button onclick="openModal(); toggleMobileMenu()" class="w-full bg-teal-600 text-white px-5 py-2.5 rounded-md font-semibold">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Insurance Assistance & Benefits Enrollment | Prime Voice Communication</title>
+      <meta name="description" content="Get help enrolling in ACA, Medicare, SSDI, final expense insurance, and motor vehicle accident support. Fast, hassle-free assistance.">
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+      <script>
+         tailwind.config = {
+             theme: {
+                 extend: {
+                     colors: {
+                         midnight: '#0B1426',
+                         electricBlue: '#4A80FF',
+                         accentTeal: '#00C2CB',
+                     },
+                     fontFamily: {
+                         sans: ['Inter', 'sans-serif'],
+                     },
+                 }
+             }
+         }
+      </script>
+      <style>
+         html { scroll-behavior: smooth; }
+         body { 
+         background-color: #0B1426; 
+         color: #FFFFFF; 
+         overflow-x: hidden;
+         font-family: 'Inter', sans-serif;
+         }
+         /* The "Shine" / Radial Glow Effects */
+         .glow-spot {
+         position: absolute;
+         width: 800px;
+         height: 800px;
+         border-radius: 50%;
+         background: radial-gradient(circle, rgba(74, 128, 255, 0.1) 0%, rgba(11, 20, 38, 0) 70%);
+         filter: blur(80px);
+         z-index: -1;
+         pointer-events: none;
+         }
+         .text-gradient {
+         background: linear-gradient(to right, #4A80FF, #A3BEFF);
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         }
+         .btn-outline {
+         border: 1px solid rgba(255, 255, 255, 0.1);
+         background: rgba(255, 255, 255, 0.03);
+         backdrop-filter: blur(10px);
+         transition: all 0.3s ease;
+         }
+         .btn-outline:hover {
+         border-color: rgba(255, 255, 255, 0.4);
+         background: rgba(255, 255, 255, 0.08);
+         }
+         /* Modal Animation */
+         .modal-enter { animation: fadeIn 0.3s ease-out forwards; }
+         @keyframes fadeIn {
+         from { opacity: 0; transform: scale(0.95); }
+         to { opacity: 1; transform: scale(1); }
+         }
+      </style>
+   </head>
+   <body class="flex flex-col min-h-screen relative">
+      <div class="glow-spot -top-40 -left-40"></div>
+      <div class="glow-spot top-1/2 -right-40" style="background: radial-gradient(circle, rgba(0, 194, 203, 0.05) 0%, rgba(11, 20, 38, 0) 70%);"></div>
+      <div id="mobileMenu" class="hidden fixed inset-0 z-50 bg-midnight/95 p-8 flex flex-col space-y-6">
+         <button onclick="toggleMobileMenu()" class="self-end text-white text-3xl">&times;</button>
+         <a href="#services" onclick="toggleMobileMenu()" class="text-2xl font-medium text-gray-300 hover:text-white transition">Services</a>
+         <a href="#about" onclick="toggleMobileMenu()" class="text-2xl font-medium text-gray-300 hover:text-white transition">About Us</a>
+         <a href="#contact" onclick="toggleMobileMenu()" class="text-2xl font-medium text-gray-300 hover:text-white transition">Contact</a>
+         <div class="pt-4 border-t border-white/10 mt-auto">
+            <a href="tel:+17867449432" class="block text-accentTeal font-bold text-xl mb-6">☎ +1 786-744-9432</a>
+            <button onclick="openModal(); toggleMobileMenu()" class="w-full bg-accentTeal text-midnight py-4 rounded-xl font-bold text-lg">
             Free Consultation
-        </button>
-    </div>
-</div>
-<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen relative">
-
-    <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-teal-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="#" class="text-2xl font-bold text-teal-700">Prime Voice</a>
-                </div>
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#services" class="text-slate-600 hover:text-teal-600 font-medium transition">Services</a>
-                    <a href="#about" class="text-slate-600 hover:text-teal-600 font-medium transition">About Us</a>
-                    <a href="#contact" class="text-slate-600 hover:text-teal-600 font-medium transition">Contact</a>
-                </nav>
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="tel:+1800PRIME-VOICE" class="text-slate-600 hover:text-teal-600 font-medium transition">
-                        ☎ +1-800-PRIME-VOICE
-                    </a>
-                    <button onclick="openModal()" class="bg-teal-600 text-white px-5 py-2.5 rounded-md font-semibold hover:bg-teal-700 transition shadow-sm">
-                        Free Consultation
-                    </button>
-                </div>
-                <div class="md:hidden flex items-center space-x-4">
-                    <button onclick="openModal()" class="bg-teal-600 text-white px-3 py-1.5 rounded text-sm font-semibold">
-                        Consult
-                    </button>
-                    <button onclick="toggleMobileMenu()" class="text-slate-600 hover:text-teal-600 focus:outline-none">
-    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-    </svg>
-</button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="bg-teal-50/50 py-16 sm:py-24 lg:py-32 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6">
-                Compassionate Insurance <br class="hidden sm:block"> & Benefits Enrollment
-            </h1>
-            <p class="mt-4 text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed">
-                Get patient, hassle-free help enrolling in ACA, Medicare, SSDI, final expense insurance, and motor vehicle accident support. Your peace of mind is our priority.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button onclick="openModal()" class="bg-teal-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-teal-700 transition shadow-md hover:shadow-lg">
-                    Get Free Assistance
-                </button>
-                <a href="#services" class="bg-white text-teal-700 border border-teal-200 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-teal-50 transition shadow-sm flex items-center justify-center">
-                    Explore Our Services
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="py-16 sm:py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">How We Can Help You</h2>
-            <p class="mt-4 text-lg text-slate-500 mb-16">Comprehensive, caring support tailored to your unique healthcare and financial needs.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-teal-100 transition group">
-                    <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center mb-6 text-xl font-bold group-hover:bg-teal-600 group-hover:text-white transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">ACA Health Insurance</h3>
-                    <p class="text-slate-600 leading-relaxed">Navigate the Affordable Care Act marketplace with ease to find the perfect health plan for you and your family.</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-teal-100 transition group">
-                    <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center mb-6 text-xl font-bold group-hover:bg-teal-600 group-hover:text-white transition-colors">
-                       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">Medicare Enrollment</h3>
-                    <p class="text-slate-600 leading-relaxed">We simplify Medicare Parts A, B, C, and D, ensuring you receive maximum benefits without the stress.</p>
-                </div>
-                 <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-teal-100 transition group">
-                    <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center mb-6 text-xl font-bold group-hover:bg-teal-600 group-hover:text-white transition-colors">
-                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">SSDI Assistance</h3>
-                    <p class="text-slate-600 leading-relaxed">Expert, patient guidance through the Social Security Disability Insurance application process.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-16 sm:py-24 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="lg:w-1/2">
-                    <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl mb-6">Our Mission</h2>
-                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
-                        At <strong>Prime Voice Communication</strong>, we believe that navigating the complexities of insurance should never be a solo journey. Our team was founded on the principle of advocacy—bridging the gap between complicated government programs and the people who need them most.
-                    </p>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-                        With years of expertise in ACA, Medicare, and SSDI support, we don't just "process" applications. We provide a voice for our clients, ensuring they are treated with dignity and receive every benefit they are entitled to.
-                    </p>
-                    <div class="grid grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-teal-700 text-2xl">10k+</h4>
-                            <p class="text-sm text-slate-500 uppercase tracking-wide">Families Helped</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-teal-700 text-2xl">100%</h4>
-                            <p class="text-sm text-slate-500 uppercase tracking-wide">Free Assistance</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="lg:w-1/2 w-full">
-                    <div class="bg-teal-600 rounded-2xl h-64 sm:h-96 w-full shadow-xl flex items-center justify-center text-white text-center p-8">
-                        <div>
-                            <p class="text-2xl font-semibold italic">"Dedicated to making healthcare accessible for every voice."</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-16 sm:py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-slate-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
-                <div class="md:w-1/3 bg-teal-700 p-10 text-white">
-                    <h3 class="text-2xl font-bold mb-6">Contact Info</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-start space-x-4">
-                            <span class="text-teal-200">📍</span>
-                            <p>123 Insurance Way, Suite 100<br>Healthcare City, ST 54321</p>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <span class="text-teal-200">📞</span>
-                            <p>+1-800-PRIME-VOICE</p>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <span class="text-teal-200">✉️</span>
-                            <p>support@primevoice.com</p>
-                        </div>
-                    </div>
-                    <div class="mt-12 p-4 bg-teal-800/50 rounded-lg border border-teal-600">
-                        <p class="text-sm text-teal-100">Our support lines are open Monday–Friday, 9am–6pm EST.</p>
-                    </div>
-                </div>
-                <div class="md:w-2/3 p-10 bg-white">
-                    <h3 class="text-2xl font-bold text-slate-900 mb-6">Send us a message</h3>
-                    <form action="#" method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
-                            <input type="text" placeholder="John Doe" class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-                            <input type="email" placeholder="john@example.com" class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none">
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Subject</label>
-                            <select class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none bg-white">
-                                <option>General Inquiry</option>
-                                <option>ACA Enrollment</option>
-                                <option>Medicare Questions</option>
-                                <option>SSDI Support</option>
-                            </select>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Message</label>
-                            <textarea rows="4" placeholder="How can we help you?" class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none"></textarea>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <button type="submit" class="w-full bg-teal-600 text-white font-bold py-4 rounded-lg hover:bg-teal-700 transition">
-                                Send Message
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-slate-900 text-slate-300 py-12 text-center border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="mb-8">
-                <a href="#" class="text-2xl font-bold text-white">Prime Voice</a>
-                <p class="mt-2 text-slate-500 text-sm italic">Compassion in every conversation.</p>
-            </div>
-            <div class="flex justify-center space-x-6 mb-8 text-sm">
-                <a href="#services" class="hover:text-teal-400">Services</a>
-                <a href="#about" class="hover:text-teal-400">About</a>
-                <a href="#contact" class="hover:text-teal-400">Contact</a>
-                <a href="#" class="hover:text-teal-400">Privacy Policy</a>
-            </div>
-            <p class="text-sm text-slate-500">&copy; 2026 Prime Voice Communication. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <div id="leadModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-slate-900/60 backdrop-blur-sm px-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative" id="modalContent">
-            
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition focus:outline-none z-10">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
             </button>
-
-            <div class="bg-teal-50 px-8 pt-8 pb-6 border-b border-teal-100 text-center">
-                <div class="mx-auto w-12 h-12 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mb-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+         </div>
+      </div>
+      <header class="sticky top-0 z-40 border-b border-white/5 bg-midnight/80 backdrop-blur-md">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+               <div class="flex-shrink-0 flex items-center">
+                  <a href="#" class="text-2xl font-extrabold text-accentTeal tracking-tight">Prime Voice</a>
+               </div>
+               <nav class="hidden md:flex space-x-8">
+                  <a href="#services" class="text-base font-medium text-gray-300 hover:text-white transition">Services</a>
+                  <a href="#about" class="text-base font-medium text-gray-300 hover:text-white transition">About Us</a>
+                  <a href="#contact" class="text-base font-medium text-gray-300 hover:text-white transition">Contact</a>
+                  <a href="career.html" class="text-base font-medium text-gray-300 hover:text-white transition">Career</a>
+               </nav>
+               <div class="hidden md:flex items-center space-x-6">
+                  <a href="tel:+17867449432" class="text-sm text-gray-300 hover:text-white transition font-medium flex items-center gap-2">
+                     <svg class="w-4 h-4 text-accentTeal" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                     </svg>
+                     +1 786-744-9432
+                  </a>
+                  <button onclick="openModal()" class="bg-accentTeal text-midnight px-6 py-2.5 rounded-lg font-bold hover:brightness-110 transition shadow-[0_0_20px_rgba(0,194,203,0.3)]">
+                  Free Consultation
+                  </button>
+               </div>
+               <div class="md:hidden flex items-center space-x-4">
+                  <button onclick="openModal()" class="bg-accentTeal text-midnight px-4 py-2 rounded-lg text-sm font-bold shadow-[0_0_15px_rgba(0,194,203,0.3)]">
+                  Consult
+                  </button>
+                  <button onclick="toggleMobileMenu()" class="text-white focus:outline-none">
+                     <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                     </svg>
+                  </button>
+               </div>
+            </div>
+         </div>
+      </header>
+      <section class="relative pt-20 pb-20 lg:pt-32 lg:pb-40">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white tracking-tight mb-6 leading-[1.1]">
+               Compassionate Insurance <br class="hidden sm:block"> 
+               <span class="text-gradient">& Benefits Enrollment</span>
+            </h1>
+            <p class="mt-4 text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+               Get patient, hassle-free help enrolling in ACA, Medicare, SSDI, final expense insurance, and motor vehicle accident support. Your peace of mind is our priority.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-5">
+               <button onclick="openModal()" class="bg-electricBlue text-white px-10 py-5 rounded-xl text-lg font-bold hover:bg-blue-600 transition flex items-center justify-center shadow-lg shadow-electricBlue/20">
+               Get Free Assistance
+               </button>
+               <a href="#services" class="btn-outline text-white px-10 py-5 rounded-xl text-lg font-bold flex items-center justify-center">
+               Explore Our Services
+               </a>
+            </div>
+         </div>
+      </section>
+      <section id="services" class="py-24 bg-white/[0.02] border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-20">
+            <h2 class="text-4xl font-bold text-white mb-4">How We Can Help You</h2>
+            <p class="text-xl text-gray-400">Comprehensive, caring support tailored to your unique healthcare and financial needs.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+            
+            <a href="/aca-health-insurance" 
+               class="block p-6 rounded-2xl btn-outline border border-transparent hover:border-electricBlue/50 transition group hover:-translate-y-1 hover:shadow-lg">
+                <div class="w-10 h-10 bg-electricBlue/10 text-electricBlue rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                        </path>
+                    </svg>
                 </div>
-                <h2 class="text-2xl font-extrabold text-slate-900 mb-2">Wait! Get Your Free Consultation</h2>
-                <p class="text-sm text-slate-600">Before you go, let our benefits experts help you find the right insurance solution.</p>
-            </div>
-
-            <div class="px-8 py-6">
-                <ul class="space-y-3 mb-6 text-sm text-slate-700">
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-teal-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        <span><strong class="font-semibold text-slate-900">Free Eligibility Check</strong> - No obligation</span>
-                    </li>
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-teal-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        <span><strong class="font-semibold text-slate-900">Expert Guidance</strong> - Personalized recommendations</span>
-                    </li>
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-teal-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        <span><strong class="font-semibold text-slate-900">Fast Process</strong> - Get enrolled quickly</span>
-                    </li>
-                </ul>
-
-                <form onsubmit="handleSubmit(event)" class="space-y-4">
-                    <div>
-                        <label for="name" class="sr-only">Your Name</label>
-                        <input type="text" id="name" placeholder="Your Name" required
-                            class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-slate-700 bg-slate-50">
-                    </div>
-                    <div>
-                        <label for="email" class="sr-only">Your Email</label>
-                        <input type="email" id="email" placeholder="Your Email Address" required
-                            class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-slate-700 bg-slate-50">
-                    </div>
-                    <button type="submit" class="w-full bg-teal-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-700 transition shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
-                        Schedule Consultation
-                    </button>
-                </form>
-            </div>
-
-            <div class="bg-slate-50 px-8 py-4 border-t border-slate-100 text-center">
-                <div class="flex items-center justify-center text-xs text-slate-500 space-x-1">
-                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    <span>We respect your privacy. HIPAA compliant. No spam.</span>
+                <h3 class="text-xl font-bold text-white mb-2">ACA Health Insurance</h3>
+                <p class="text-gray-400 leading-normal mb-3">
+                    Navigate the Affordable Care Act marketplace with ease to find the perfect health plan.
+                </p>
+                <div class="flex items-center text-electricBlue font-medium group">
+                    <span class="relative">
+                        Learn More
+                        <span class="absolute left-0 -bottom-1 w-0 h-[2px] bg-electricBlue transition-all duration-300 group-hover:w-full"></span>
+                    </span>
+                    <svg class="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
                 </div>
-            </div>
+            </a>
+
+            <a href="/medicare-enrollment" 
+               class="block p-6 rounded-2xl btn-outline border border-transparent hover:border-electricBlue/50 transition group hover:-translate-y-1 hover:shadow-lg">
+                <div class="w-10 h-10 bg-electricBlue/10 text-electricBlue rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Medicare Enrollment</h3>
+                <p class="text-gray-400 leading-normal mb-3">
+                    We simplify Medicare Parts A, B, C, and D, ensuring you receive maximum benefits without the stress.
+                </p>
+                <div class="flex items-center text-electricBlue font-medium group">
+                    <span class="relative">
+                        Learn More
+                        <span class="absolute left-0 -bottom-1 w-0 h-[2px] bg-electricBlue transition-all duration-300 group-hover:w-full"></span>
+                    </span>
+                    <svg class="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </div>
+            </a>
+
+            <a href="/ssdi-assistance" 
+               class="block p-6 rounded-2xl btn-outline border border-transparent hover:border-electricBlue/50 transition group hover:-translate-y-1 hover:shadow-lg">
+                <div class="w-10 h-10 bg-electricBlue/10 text-electricBlue rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">SSDI Assistance</h3>
+                <p class="text-gray-400 leading-normal mb-3">
+                    Expert, patient guidance through the Social Security Disability Insurance application process.
+                </p>
+                <div class="flex items-center text-electricBlue font-medium group">
+                    <span class="relative">
+                        Learn More
+                        <span class="absolute left-0 -bottom-1 w-0 h-[2px] bg-electricBlue transition-all duration-300 group-hover:w-full"></span>
+                    </span>
+                    <svg class="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </div>
+            </a>
+
+            <a href="/final-expense" 
+               class="block p-6 rounded-2xl btn-outline border border-transparent hover:border-electricBlue/50 transition group hover:-translate-y-1 hover:shadow-lg">
+                <div class="w-10 h-10 bg-electricBlue/10 text-electricBlue rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Final Expense Insurance</h3>
+                <p class="text-gray-400 leading-normal mb-3">
+                    Funeral and final expense coverage planning to bring you and your family peace of mind.
+                </p>
+                <div class="flex items-center text-electricBlue font-medium group">
+                    <span class="relative">
+                        Learn More
+                        <span class="absolute left-0 -bottom-1 w-0 h-[2px] bg-electricBlue transition-all duration-300 group-hover:w-full"></span>
+                    </span>
+                    <svg class="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </div>
+            </a>
+
+            <a href="motor-vehicle-support.html" 
+               class="block p-6 rounded-2xl btn-outline border border-transparent hover:border-electricBlue/50 transition group hover:-translate-y-1 hover:shadow-lg">
+                <div class="w-10 h-10 bg-electricBlue/10 text-electricBlue rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16a2 2 0 100-4 2 2 0 000 4zm8 0a2 2 0 100-4 2 2 0 000 4zm-8-4h8m-8 0v-4l2-2h4l2 2v4"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Motor Vehicle Accident Support</h3>
+                <p class="text-gray-400 leading-normal mb-3">
+                    Claims assistance for vehicle accident injuries to ensure you get the coverage you deserve.
+                </p>
+                <div class="flex items-center text-electricBlue font-medium group">
+                    <span class="relative">
+                        Learn More
+                        <span class="absolute left-0 -bottom-1 w-0 h-[2px] bg-electricBlue transition-all duration-300 group-hover:w-full"></span>
+                    </span>
+                    <svg class="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </div>
+            </a>
+
+            <a href="/life-insurance" 
+               class="block p-6 rounded-2xl btn-outline border border-transparent hover:border-electricBlue/50 transition group hover:-translate-y-1 hover:shadow-lg">
+                <div class="w-10 h-10 bg-electricBlue/10 text-electricBlue rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Life Insurance Planning</h3>
+                <p class="text-gray-400 leading-normal mb-3">
+                    Secure your family's financial future with comprehensive and affordable life coverage.
+                </p>
+                <div class="flex items-center text-electricBlue font-medium group">
+                    <span class="relative">
+                        Learn More
+                        <span class="absolute left-0 -bottom-1 w-0 h-[2px] bg-electricBlue transition-all duration-300 group-hover:w-full"></span>
+                    </span>
+                    <svg class="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </div>
+            </a>
+
         </div>
     </div>
-
-    <script>
-		// Initialize Supabase (Replace with your actual keys from Project Settings > API)
-		const SB_URL = 'https://grgqnjqxfxltphbfjpbg.supabase.co'
-		const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyZ3FuanF4ZnhsdHBoYmZqcGJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NTA0NjksImV4cCI6MjA4OTQyNjQ2OX0.m7Pmt2ukKdpCm17OZcm5UliVoyfPk6li50_gXcmd3aY'
-		let dbClient;
-		try {
-        // Check if the library is actually loaded from the CDN
-        if (window.supabase) {
-            dbClient = window.supabase.createClient(SB_URL, SB_KEY);
-            console.log("Supabase initialized successfully!");
-        } else {
-            console.error("Supabase library not found. Check your CDN script tag in the <head>.");
-        }
-    } catch (err) {
-        console.error("Initialization error:", err);
-    }
-		
-		async function handleSubmit(event) {
-			event.preventDefault();
-			try {
-
-        // 2. Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-
-        // 3. Insert into Supabase
-        const { data, error } = await dbClient
-            .from('customers')
-            .insert([
-                { 
-                    full_name: name, 
-                    email: email
-                }
-            ]);
-
-        if (error) throw error;
-
-        alert('Thank you! We will be in touch.');
-        closeModal(); // Close your popup
-        
-    } catch (err) {
-        console.error('Error:', err.message);
-        alert('Something went wrong. Please try again.');
-    }
-}
-  const modal = document.getElementById('leadModal');
-const modalContent = document.getElementById('modalContent');
-let hasOpened = false; 
-
-// 2. Change your functions to "Function Declarations" 
-// (This helps with hoisting)
-function openModal() {
-    // Double check the element exists to avoid null errors
-    const modal = document.getElementById('leadModal');
-    const modalContent = document.getElementById('modalContent');
-    
-    if (modal && modalContent) {
-        modal.classList.remove('hidden');
-        modalContent.classList.add('modal-enter');
-        hasOpened = true;
-    }
-}
-
-function closeModal() {
-    const modal = document.getElementById('leadModal');
-    const modalContent = document.getElementById('modalContent');
-    
-    if (modal) {
-        modal.classList.add('hidden');
-        modalContent.classList.remove('modal-enter');
-    }
-}
-
-// Close modal if user clicks outside
-window.addEventListener('click', function(event) {
-    const modal = document.getElementById('leadModal');
-    if (event.target === modal) {
-        closeModal();
-    }
-});
-
-// Auto-popup logic
-setTimeout(() => {
-    if (!hasOpened) {
-        openModal();
-    }
-}, 10000);
-
-function toggleMobileMenu() {
-    const menu = document.getElementById('mobileMenu');
-    if (menu.classList.contains('hidden')) {
-        menu.classList.remove('hidden');
-    } else {
-        menu.classList.add('hidden');
-    }
-}
-    </script>
-</body>
+</section>
+      <section id="about" class="py-24 relative">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+               <div class="lg:w-1/2">
+                  <h2 class="text-4xl font-bold text-white mb-6">Our Mission</h2>
+                  <p class="text-xl text-gray-400 mb-6 leading-relaxed">
+                     At <strong class="text-white font-semibold">Prime Voice Communication</strong>, we believe that navigating the complexities of insurance should never be a solo journey. Our team was founded on the principle of advocacy—bridging the gap between complicated government programs and the people who need them most.
+                  </p>
+                  <p class="text-xl text-gray-400 mb-10 leading-relaxed">
+                     With years of expertise in ACA, Medicare, and SSDI support, we don't just "process" applications. We provide a voice for our clients, ensuring they are treated with dignity and receive every benefit they are entitled to.
+                  </p>
+                  <div class="grid grid-cols-2 gap-8 border-t border-white/10 pt-8">
+                     <div>
+                        <h4 class="font-bold text-accentTeal text-4xl mb-2">10k+</h4>
+                        <p class="text-sm text-gray-500 uppercase tracking-wider font-semibold">Families Helped</p>
+                     </div>
+                     <div>
+                        <h4 class="font-bold text-accentTeal text-4xl mb-2">100%</h4>
+                        <p class="text-sm text-gray-500 uppercase tracking-wider font-semibold">Free Assistance</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="lg:w-1/2 w-full">
+                  <div class="bg-electricBlue/5 border border-electricBlue/20 rounded-3xl h-64 sm:h-96 w-full shadow-[0_0_40px_rgba(74,128,255,0.1)] flex items-center justify-center text-center p-12 relative overflow-hidden">
+                     <div class="absolute inset-0 bg-gradient-to-br from-electricBlue/10 to-transparent"></div>
+                     <div class="relative z-10">
+                        <svg class="w-12 h-12 text-electricBlue mx-auto mb-6 opacity-80" fill="currentColor" viewBox="0 0 32 32">
+                           <path d="M10 16c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm12 10c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zM26 30h-4v-4c0-2.2-1.8-4-4-4H4c-2.2 0-4 1.8-4 4v4h-4v-4c0-4.4 3.6-8 8-8h14c4.4 0 8 3.6 8 8v4z"/>
+                        </svg>
+                        <p class="text-2xl font-medium text-white italic">"Dedicated to making healthcare accessible for every voice."</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section id="contact" class="py-24 bg-white/[0.02] border-y border-white/5">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-midnight border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative">
+               <div class="absolute top-0 right-0 w-96 h-96 bg-accentTeal/5 rounded-full blur-3xl pointer-events-none"></div>
+               <div class="md:w-1/3 bg-white/5 p-12 text-white border-b md:border-b-0 md:border-r border-white/10 relative z-10">
+                  <h3 class="text-3xl font-bold mb-8 text-white">Contact Info</h3>
+                  <div class="space-y-8">
+                     <div class="flex items-start space-x-5">
+                        <span class="text-accentTeal text-2xl">📍</span>
+                        <p class="text-gray-300 leading-relaxed">123 Insurance Way, Suite 100<br>Healthcare City, ST 54321</p>
+                     </div>
+                     <div class="flex items-start space-x-5">
+                        <span class="text-accentTeal text-2xl">📞</span>
+                        <p class="text-gray-300 leading-relaxed">+1 786-744-9432</p>
+                     </div>
+                     <div class="flex items-start space-x-5">
+                        <span class="text-accentTeal text-2xl">✉️</span>
+                        <p class="text-gray-300 leading-relaxed">support@primevoice.com</p>
+                     </div>
+                  </div>
+                  <div class="mt-14 p-6 bg-accentTeal/10 rounded-xl border border-accentTeal/20">
+                     <p class="text-sm text-accentTeal font-medium">Our support lines are open Monday–Friday, 9am–6pm EST.</p>
+                  </div>
+               </div>
+               <div class="md:w-2/3 p-12 bg-transparent relative z-10">
+                  <h3 class="text-3xl font-bold text-white mb-8">Send us a message</h3>
+                  <form action="#" method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                     <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Full Name</label>
+                        <input type="text" placeholder="John Doe" class="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl focus:ring-1 focus:ring-electricBlue focus:border-electricBlue outline-none text-white transition">
+                     </div>
+                     <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Email Address</label>
+                        <input type="email" placeholder="john@example.com" class="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl focus:ring-1 focus:ring-electricBlue focus:border-electricBlue outline-none text-white transition">
+                     </div>
+                     <div class="sm:col-span-2">
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Subject</label>
+                        <select class="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl focus:ring-1 focus:ring-electricBlue focus:border-electricBlue outline-none text-white transition appearance-none">
+                           <option class="bg-midnight text-white">General Inquiry</option>
+                           <option class="bg-midnight text-white">ACA Enrollment</option>
+                           <option class="bg-midnight text-white">Medicare Questions</option>
+                           <option class="bg-midnight text-white">SSDI Support</option>
+                        </select>
+                     </div>
+                     <div class="sm:col-span-2">
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                        <textarea rows="4" placeholder="How can we help you?" class="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl focus:ring-1 focus:ring-electricBlue focus:border-electricBlue outline-none text-white transition resize-none"></textarea>
+                     </div>
+                     <div class="sm:col-span-2 mt-2">
+                        <button type="submit" class="w-full bg-electricBlue text-white font-bold py-5 rounded-xl hover:bg-blue-600 transition shadow-lg shadow-electricBlue/20">
+                        Send Message
+                        </button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </section>
+      <footer class="py-12 border-t border-white/5 text-center bg-transparent mt-auto">
+         <div class="max-w-7xl mx-auto px-4">
+            <div class="mb-8">
+               <a href="#" class="text-2xl font-extrabold text-white">Prime Voice</a>
+               <p class="mt-2 text-gray-500 text-sm italic">Compassion in every conversation.</p>
+            </div>
+            <div class="flex justify-center space-x-8 mb-8 text-sm font-medium text-gray-400">
+               <a href="#services" class="hover:text-white transition">Services</a>
+               <a href="#about" class="hover:text-white transition">About</a>
+               <a href="#contact" class="hover:text-white transition">Contact</a>
+               <a href="#" class="hover:text-white transition">Privacy Policy</a>
+            </div>
+            <p class="text-sm text-gray-600">&copy; 2026 Prime Voice Communication. All rights reserved.</p>
+         </div>
+      </footer>
+      <div id="leadModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-midnight/90 backdrop-blur-xl px-4">
+         <div class="bg-midnight border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] w-full max-w-md overflow-hidden relative" id="modalContent">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition focus:outline-none z-10">
+               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+               </svg>
+            </button>
+            <div class="px-8 pt-8 pb-6 border-b border-white/5 text-center">
+               <div class="mx-auto w-12 h-12 bg-electricBlue/20 text-electricBlue rounded-full flex items-center justify-center mb-4">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                  </svg>
+               </div>
+               <h2 class="text-2xl font-extrabold text-white mb-2">Wait! Get Your Free Consultation</h2>
+               <p class="text-sm text-gray-400">Before you go, let our benefits experts help you find the right insurance solution.</p>
+            </div>
+            <div class="px-8 py-6">
+               <ul class="space-y-3 mb-6 text-sm text-gray-300">
+                  <li class="flex items-start">
+                     <svg class="w-5 h-5 text-electricBlue mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                     </svg>
+                     <span><strong class="font-semibold text-white">Free Eligibility Check</strong> - No obligation</span>
+                  </li>
+                  <li class="flex items-start">
+                     <svg class="w-5 h-5 text-electricBlue mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                     </svg>
+                     <span><strong class="font-semibold text-white">Expert Guidance</strong> - Personalized recommendations</span>
+                  </li>
+                  <li class="flex items-start">
+                     <svg class="w-5 h-5 text-electricBlue mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                     </svg>
+                     <span><strong class="font-semibold text-white">Fast Process</strong> - Get enrolled quickly</span>
+                  </li>
+               </ul>
+               <form onsubmit="handleSubmit(event)" class="space-y-4">
+                  <div>
+                     <label for="name" class="sr-only">Your Name</label>
+                     <input type="text" id="name" placeholder="Your Name" required
+                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-electricBlue focus:ring-1 focus:ring-electricBlue outline-none text-white transition">
+                  </div>
+                  <div>
+                     <label for="email" class="sr-only">Your Email</label>
+                     <input type="email" id="email" placeholder="Your Email Address" required
+                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-electricBlue focus:ring-1 focus:ring-electricBlue outline-none text-white transition">
+                  </div>
+                  <button type="submit" class="w-full bg-electricBlue text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-600 transition shadow-lg shadow-electricBlue/20 focus:outline-none focus:ring-2 focus:ring-electricBlue focus:ring-offset-2 focus:ring-offset-midnight">
+                  Schedule Consultation
+                  </button>
+               </form>
+            </div>
+            <div class="px-8 py-4 border-t border-white/5 text-center bg-white/[0.02]">
+               <div class="flex items-center justify-center text-xs text-gray-500 space-x-1">
+                  <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                  </svg>
+                  <span>We respect your privacy. HIPAA compliant. No spam.</span>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script>
+         const SB_URL = 'https://grgqnjqxfxltphbfjpbg.supabase.co'
+         const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyZ3FuanF4ZnhsdHBoYmZqcGJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NTA0NjksImV4cCI6MjA4OTQyNjQ2OX0.m7Pmt2ukKdpCm17OZcm5UliVoyfPk6li50_gXcmd3aY'
+         let dbClient;
+         try {
+             if (window.supabase) {
+                 dbClient = window.supabase.createClient(SB_URL, SB_KEY);
+                 console.log("Supabase initialized successfully!");
+             } else {
+                 console.error("Supabase library not found. Check your CDN script tag in the <head>.");
+             }
+         } catch (err) {
+             console.error("Initialization error:", err);
+         }
+         
+         async function handleSubmit(event) {
+             event.preventDefault();
+             try {
+                 const name = document.getElementById('name').value;
+                 const email = document.getElementById('email').value;
+         
+                 const { data, error } = await dbClient
+                     .from('customers')
+                     .insert([
+                         { 
+                             full_name: name, 
+                             email: email
+                         }
+                     ]);
+         
+                 if (error) throw error;
+         
+                 alert('Thank you! We will be in touch.');
+                 closeModal();
+                 
+             } catch (err) {
+                 console.error('Error:', err.message);
+                 alert('Something went wrong. Please try again.');
+             }
+         }
+         
+         const modal = document.getElementById('leadModal');
+         const modalContent = document.getElementById('modalContent');
+         let hasOpened = false; 
+         
+         function openModal() {
+             const modal = document.getElementById('leadModal');
+             const modalContent = document.getElementById('modalContent');
+             
+             if (modal && modalContent) {
+                 modal.classList.remove('hidden');
+                 modalContent.classList.add('modal-enter');
+                 hasOpened = true;
+             }
+         }
+         
+         function closeModal() {
+             const modal = document.getElementById('leadModal');
+             const modalContent = document.getElementById('modalContent');
+             
+             if (modal) {
+                 modal.classList.add('hidden');
+                 modalContent.classList.remove('modal-enter');
+             }
+         }
+         
+         window.addEventListener('click', function(event) {
+             const modal = document.getElementById('leadModal');
+             if (event.target === modal) {
+                 closeModal();
+             }
+         });
+         
+         setTimeout(() => {
+             if (!hasOpened) {
+                 openModal();
+             }
+         }, 10000);
+         
+         function toggleMobileMenu() {
+             const menu = document.getElementById('mobileMenu');
+             if (menu.classList.contains('hidden')) {
+                 menu.classList.remove('hidden');
+             } else {
+                 menu.classList.add('hidden');
+             }
+         }
+      </script>
+   </body>
 </html>
